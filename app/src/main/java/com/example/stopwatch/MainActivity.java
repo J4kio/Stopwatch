@@ -13,6 +13,8 @@ public class MainActivity extends Activity {
 
     private int seconds = 0;
     private boolean running;
+    private String time="";
+    int contador=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,9 @@ public class MainActivity extends Activity {
     public void onClickReset(View view){
         running = false;
         seconds=0;
+        final TextView roundview = (TextView) findViewById(R.id.roundview);
+        roundview.setText("");
+        contador=0;
 
     }
     @Override
@@ -40,6 +45,14 @@ public class MainActivity extends Activity {
 
 
 
+    }
+    public void onClickRound(View view){
+        if(contador<5){
+            contador++;
+            final TextView roundview = (TextView) findViewById(R.id.roundview);
+            String textoActual = roundview.getText().toString();
+            roundview.setText(textoActual + "\n" + "vuelta: " + contador + " tiempo: " +time);
+        }
     }
 
     private void runTimer(){
@@ -53,7 +66,7 @@ public class MainActivity extends Activity {
                 int hours = seconds/3600;
                 int minutes = (seconds%3600)/60;
                 int secs = seconds%60;
-                String time = String.format(Locale.getDefault(),"%d:%02d:%02d",hours,minutes,secs);
+                time = String.format(Locale.getDefault(),"%d:%02d:%02d",hours,minutes,secs);
                 timeView.setText(time);
                 if(running){
                     seconds++;
